@@ -1,24 +1,19 @@
 // Importation de React
 import React from "react";
+import { motion } from "framer-motion";
 
-// FilterBar component that displays filtering and sorting options
+// Composant FilterBar qui affiche les options de filtrage et de tri
 const FilterBar = ({
   currentFilter,
   onFilterChange,
   selectedCategory,
   onCategoryChange,
+  stats,
 }) => {
-  // List of available categories
-  const categories = [
-    "All",
-    "Appetizer",
-    "Main Course",
-    "Dessert",
-    "Drink",
-    "Snack",
-  ];
+  // Liste des categories disponibles
+  const categories = ["All", "Snack", "Divers", "Salade", "Soupe", "Dessert"];
 
-  // Helper function for filter button classes
+  // Fonction d'assistance pour les classes de boutons de filtre
   const getButtonClass = (filterName) => {
     const baseClasses = "px-4 py-2 rounded-full transition-colors";
     return `${baseClasses} ${
@@ -28,10 +23,10 @@ const FilterBar = ({
     }`;
   };
 
-  // Helper function for category selector classes
+  // Fonction d'assistance pour les classes de boutons de sélection de category
   const getCategoryClass = (category) => {
     const baseClasses =
-      "px-4 py-2 rounded-full text-sm transition-colors cursor-pointer";
+      "px-4 py-2 rounded-full text-sm transition-colors cursor-pointer flex items-center gap-2";
     return `${baseClasses} ${
       selectedCategory === category
         ? "bg-[#00FF66] text-[#14142B]"
@@ -43,53 +38,75 @@ const FilterBar = ({
     <div className="mb-8 space-y-6">
       {/* Main filters */}
       <div className="flex flex-col sm:flex-row gap-4 items-center justify-between">
-        <h2 className="text-xl text-white">Sort by :</h2>
+        <h2 className="text-xl text-white">Trier par :</h2>
         <div className="flex flex-wrap gap-4">
-          <button
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
             onClick={() => onFilterChange("recent")}
             className={getButtonClass("recent")}
           >
-            Most recent
-          </button>
-          <button
+            Plus récent
+          </motion.button>
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
             onClick={() => onFilterChange("popular")}
             className={getButtonClass("popular")}
           >
-            Popular
-          </button>
-          <button
+            Populaire
+          </motion.button>
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
             onClick={() => onFilterChange("difficulty-asc")}
             className={getButtonClass("difficulty-asc")}
           >
-            Easy to difficult
-          </button>
-          <button
+            Facile à difficile
+          </motion.button>
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
             onClick={() => onFilterChange("difficulty-desc")}
             className={getButtonClass("difficulty-desc")}
           >
-            Difficult to easy
-          </button>
-          <button
+            Difficile à facile
+          </motion.button>
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
             onClick={() => onFilterChange("time")}
             className={getButtonClass("time")}
           >
-            Preparation time
-          </button>
+            Temps de préparation
+          </motion.button>
         </div>
       </div>
 
       {/* Category filters */}
       <div className="flex flex-col sm:flex-row gap-4 items-center justify-between">
-        <h2 className="text-xl text-white">Categories :</h2>
+        <h2 className="text-xl text-white">Catégories :</h2>
         <div className="flex flex-wrap gap-3">
           {categories.map((category) => (
-            <span
+            <motion.span
               key={category}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
               onClick={() => onCategoryChange(category)}
               className={getCategoryClass(category)}
             >
               {category}
-            </span>
+              {category !== "All" && stats?.recipesByCategory?.[category] && (
+                <span className="bg-[#14142B] px-2 py-1 rounded-full text-xs">
+                  {stats.recipesByCategory[category]}
+                </span>
+              )}
+              {category === "All" && stats?.totalRecipes && (
+                <span className="bg-[#14142B] px-2 py-1 rounded-full text-xs">
+                  {stats.totalRecipes}
+                </span>
+              )}
+            </motion.span>
           ))}
         </div>
       </div>

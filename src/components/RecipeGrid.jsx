@@ -1,95 +1,92 @@
-// Importation des hooks React et composants nécessaires
-import React, { useState, useMemo } from "react";
+import React from "react";
 import RecipeCard from "./RecipeCard";
 import FilterBar from "./FilterBar";
+import useRecipes from "../hooks/useRecipes";
 
-// Composant principal qui affiche la grille des recettes
-const RecipeGrid = ({ recipes }) => {
-  // États locaux pour gérer les filtres
-  const [currentFilter, setCurrentFilter] = useState("recent");
-  const [selectedCategory, setSelectedCategory] = useState("All");
+const RecipeGrid = ({ filters, setFilters }) => {
+  const { recipes } = useRecipes();
 
-  // Fonction pour calculer la popularité (basée sur les vues et les likes)
-  const getPopularityScore = (recipe) => {
-    return (recipe.views || 0) + (recipe.likes || 0) * 2;
-  };
+  // Appliquer les filtres
+  let displayedRecipes = [...recipes];
 
-  // useMemo pour optimiser le filtrage et le tri des recettes
-  const filteredAndSortedRecipes = useMemo(() => {
-    if (!recipes || recipes.length === 0) {
-      return [];
-    }
-
-    // Filtrage par catégorie
-    let filtered = [...recipes];
-    if (selectedCategory !== "All") {
-      filtered = filtered.filter(
-        (recipe) => recipe.category === selectedCategory
-      );
-    }
-
-    // Application du tri selon le filtre sélectionné
-    switch (currentFilter) {
-      case "recent":
-        // Tri par date de création (plus récent en premier)
-        return filtered.sort((a, b) => {
-          const dateA = new Date(a.createdAt);
-          const dateB = new Date(b.createdAt);
-          return dateB - dateA;
-        });
-
-      case "popular":
-        // Tri par popularité (vues + likes)
-        return filtered.sort(
-          (a, b) => getPopularityScore(b) - getPopularityScore(a)
-        );
-
-      case "difficulty-asc":
-        // Tri par difficulté croissante (facile à difficile)
-        return filtered.sort((a, b) => a.difficulty - b.difficulty);
-
-      case "difficulty-desc":
-        // Tri par difficulté décroissante (difficile à facile)
-        return filtered.sort((a, b) => b.difficulty - a.difficulty);
-
-      case "time":
-        // Tri par temps de préparation
-        return filtered.sort((a, b) => {
-          const timeA = (a.prepTime || 0) + (a.cookTime || 0);
-          const timeB = (b.prepTime || 0) + (b.cookTime || 0);
-          return timeA - timeB;
-        });
-
-      default:
-        return filtered;
-    }
-  }, [recipes, currentFilter, selectedCategory]);
-
-  // Si aucune recette n'est disponible
-  if (!recipes || recipes.length === 0) {
-    return <div className="text-white text-center">No recipes found</div>;
+  // Filtrer par recherche
+  if (filters.search.trim()) {
+    const search = filters.search.toLowerCase().trim();
+    displayedRecipes = displayedRecipes.filter(recipe => 
+      recipe.title.toLowerCase().includes(search)
+    );
   }
 
-  // Rendu du composant
+  // Filtrer par catégorie
+  if (filters.category !== "All") {
+    displayedRecipes = displayedRecipes.filter(
+      (recipe) => recipe.category === filters.category
+    );
+  }
+
+  // Appliquer le tri
+  displayedRecipes.sort((a, b) => {
+    switch (filters.sort) {
+      case "recent":
+        return new Date(b.date || 0) - new Date(a.date || 0);
+      case "popular":
+        const scoreA = (a.views || 0) + (a.likes || 0) * 2;
+        const scoreB = (b.views || 0) + (b.likes || 0) * 2;
+        return scoreB - scoreA;
+      case "difficulty-asc":
+        return (a.difficulty || 0) - (b.difficulty || 0);
+      case "difficulty-desc":
+        return (b.difficulty || 0) - (a.difficulty || 0);
+      case "time":
+        const getTime = (recipe) => {
+          const prep = parseInt(recipe.prepTime) || 0;
+          const cook = parseInt(recipe.cookTime) || 0;
+          return prep + cook;
+        };
+        return getTime(a) - getTime(b);
+      default:
+        return 0;
+    }
+  });
+
   return (
     <div>
-      {/* Barre de filtres avec les options de tri et de catégorie */}
+      <div className="flex justify-between items-center mb-4">
+        {/* Barre de recherche */}
+        <input
+          type="text"
+          placeholder="Rechercher une recette..."
+          value={filters.search}
+          onChange={(e) => setFilters({ ...filters, search: e.target.value })}
+          className="flex-1 px-4 py-2 rounded bg-[#14142B] border border-gray-600 text-white focus:outline-none focus:border-[#00FF66]"
+        />
+        <button
+          onClick={() => {
+            localStorage.removeItem("recipes");
+            window.location.reload();
+          }}
+          className="ml-4 px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600"
+        >
+          Réinitialiser
+        </button>
+      </div>
+
       <FilterBar
-        currentFilter={currentFilter}
-        onFilterChange={setCurrentFilter}
-        selectedCategory={selectedCategory}
-        onCategoryChange={setSelectedCategory}
+        currentFilter={filters.sort}
+        onFilterChange={(sort) => setFilters({ ...filters, sort })}
+        selectedCategory={filters.category}
+        onCategoryChange={(category) => setFilters({ ...filters, category })}
       />
 
-      {/* Message si aucune recette ne correspond aux filtres */}
-      {filteredAndSortedRecipes.length === 0 ? (
+      {displayedRecipes.length === 0 ? (
         <div className="text-white text-center py-8">
-          No recipes match the selected criteria
+          {filters.search 
+            ? `Aucune recette ne correspond à "${filters.search}"`
+            : "Aucune recette ne correspond aux critères sélectionnés"}
         </div>
       ) : (
-        /* Grille des recettes filtrées et triées */
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {filteredAndSortedRecipes.map((recipe) => (
+          {displayedRecipes.map((recipe) => (
             <RecipeCard
               key={recipe.id}
               id={recipe.id}
@@ -98,11 +95,11 @@ const RecipeGrid = ({ recipes }) => {
               category={recipe.category}
               difficulty={recipe.difficulty}
               description={recipe.description}
-              createdAt={recipe.createdAt}
               views={recipe.views}
               likes={recipe.likes}
               prepTime={recipe.prepTime}
               cookTime={recipe.cookTime}
+              date={recipe.date}
             />
           ))}
         </div>
