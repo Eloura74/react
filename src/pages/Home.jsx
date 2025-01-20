@@ -3,13 +3,14 @@ import { Link } from 'react-router-dom';
 import Navbar from '../components/navbar';
 import FilterBar from '../components/filters';
 
-const Home = ({ recipes, currentFilter, onFilterChange }) => {
+const Home = ({ recipes, currentFilter, onFilterChange, onSearch }) => {
   return (
     <>
       <Navbar accueilOnClick={() => {}} />
       <FilterBar
         currentFilter={currentFilter}
         onFilterChange={onFilterChange}
+        onSearch={onSearch}
       />
       <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 p-6">
         {recipes.map((recipe) => (
