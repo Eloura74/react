@@ -51,7 +51,7 @@ const RecipeDetails = ({ recipes }) => {
 
             <div className="space-y-4">
               <div className="bg-white bg-opacity-80 rounded-lg p-4 shadow shadowAndHover">
-                <h2 className="text-2xl font-memoirs mb-2 ">Informations</h2>
+                <h2 className="text-2xl font-memoirs mb-2">Informations</h2>
                 <p className="text-gray-600 font-memoirs">
                   Difficulté: {"⭐".repeat(recipe.difficulty)}
                 </p>
@@ -59,8 +59,7 @@ const RecipeDetails = ({ recipes }) => {
                   ⏲ Temps de préparation: {recipe.prepTime} minutes
                 </p>
                 <p className="text-gray-600 font-memoirs">
-                  <span className="text-red-500 text-xl"> ❤</span> Likes:{" "}
-                  {recipe.likes}
+                  <span className="text-red-500 text-xl">❤</span> Likes: {recipe.likes}
                 </p>
                 <p className="text-gray-600 font-memoirs">
                   👀 Vues: {recipe.views}
@@ -69,9 +68,7 @@ const RecipeDetails = ({ recipes }) => {
 
               <div className="bg-white bg-opacity-80 rounded-lg p-4 shadow shadowAndHover">
                 <h2 className="text-2xl font-memoirs mb-2">Description</h2>
-                <p className="text-gray-600 font-memoirs">
-                  {recipe.description}
-                </p>
+                <p className="text-gray-600 font-memoirs">{recipe.description}</p>
               </div>
 
               <div className="bg-white bg-opacity-80 rounded-lg p-4 shadow shadowAndHover">

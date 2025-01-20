@@ -1,10 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 
-// Composant de barre de filtres
-
 const FilterBar = ({ currentFilter, onFilterChange }) => {
-  // Classes pour les boutons de filtre
   const getButtonClass = (filterName) => {
     const baseClasses = "px-4 py-2 rounded-full transition-colors font-memoirs";
     return `${baseClasses} ${
@@ -16,7 +13,6 @@ const FilterBar = ({ currentFilter, onFilterChange }) => {
 
   return (
     <div className="p-6 space-y-6">
-      {/* Filtres principaux */}
       <div className="flex flex-col sm:flex-row gap-4 items-center justify-between">
         <h2 className="text-4xl text-gray-50 font-memoirs [text-shadow:_0_1px_0_rgba(1_1_1_/_80%)]">
           Trier par :
@@ -37,6 +33,14 @@ const FilterBar = ({ currentFilter, onFilterChange }) => {
             className={getButtonClass("like")}
           >
             Plus populaire
+          </motion.button>
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            onClick={() => onFilterChange("difficult")}
+            className={getButtonClass("difficult")}
+          >
+            Plus difficile
           </motion.button>
         </div>
       </div>

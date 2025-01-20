@@ -8,10 +8,10 @@ const Navbar = ({ accueilOnClick }) => {
         <Link
           to="/"
           onClick={accueilOnClick}
-          className="flex items-center gap-12 ml-8 mt-8 filter grayscale "
+          className="flex items-center gap-12 ml-8 mt-8 filter grayscale"
         >
           <img
-            src="./images/logo.svg"
+            src="/images/logo.svg"
             alt="logo"
             className="w-28 h-28 hoverBtn"
           />

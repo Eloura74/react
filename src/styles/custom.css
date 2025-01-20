@@ -1,0 +1,42 @@
+/*  couleur du background principale */
+/* couleur body bg */
+.bodyBg {
+  @apply bg-gradient-to-b from-neutral-300 from-40% via-cyan-50 via-60% to-teal-50 to-90%;
+}
+
+/* couleur navbar bg */
+.navbarBg {
+  @apply h-[200px] w-full relative bg-center bg-no-repeat bg-cover;
+  background-image: url("/images/ban.png");
+}
+
+.navbarBg::before {
+  content: "";
+  @apply absolute inset-0 pointer-events-none;
+  background: linear-gradient(
+    to right,
+    rgba(0, 0, 0, 0.5) 0%,
+    rgba(0, 0, 0, 0) 100%
+  );
+}
+
+.hoverBtn {
+  @apply hover:scale-110 transition duration-500 ease-in-out hover:shadow-lg hover:shadow-cyan-500/50;
+}
+
+.bgCard {
+  @apply bg-gradient-to-b from-neutral-300 from-40% via-cyan-50 via-60% to-teal-50 to-90%;
+}
+
+.hoverEffect {
+  @apply hover:bg-gradient-to-b from-gray-300 via-gray-400 to-gray-50 hover:text-[#14142B] font-semibold hover:shadow-xl transition-shadow duration-500 ease-in-out;
+}
+
+.detailGb {
+  @apply opacity-10;
+  background-image: url("/images/download.png");
+}
+
+.shadowAndHover {
+  @apply shadow-lg hover:shadow-xl hover:shadow-cyan-500/50;
+}

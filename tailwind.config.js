@@ -1,6 +1,11 @@
 /** @type {import('tailwindcss').Config} */
 export default {
-  content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
+  content: [
+    "./index.html",
+    "./src/**/*.{js,ts,jsx,tsx}",
+    "./src/pages/**/*.{js,ts,jsx,tsx}",
+    "./src/components/**/*.{js,ts,jsx,tsx}",
+  ],
   theme: {
     extend: {
       colors: {
@@ -9,9 +14,9 @@ export default {
         bodyBgEnd: "#C6C2B3",
       },
       fontFamily: {
-        memoirs: ['"Mouse Memoirs"', 'sans-serif'],
+        memoirs: ['"Mouse Memoirs"', "sans-serif"],
       },
     },
   },
-  plugins: [require('@tailwindcss/nesting')],
+  plugins: [],
 };
