@@ -31,3 +31,12 @@
 .hoverEffect {
   @apply hover:bg-gradient-to-b from-gray-300 via-gray-400 to-gray-50 hover:text-[#14142B] font-semibold hover:shadow-xl transition-shadow duration-500 ease-in-out;
 }
+
+.detailGb {
+  @apply opacity-10;
+  background-image: url("/images/download.png");
+}
+
+.shadowAndHover {
+  @apply shadow-lg hover:shadow-xl hover:shadow-cyan-500/50;
+}
