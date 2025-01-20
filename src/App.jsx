@@ -5,7 +5,7 @@ import "./styles/index.css";
 import "./styles/custom.css";
 
 // Pages
-import Home from "./pages/Home";
+import Home from "./pages/home";
 import RecipeDetails from "./pages/RecipeDetails";
 
 // Data
@@ -25,9 +25,9 @@ function App() {
   const handleSearch = (term) => {
     setSearchTerm(term);
     let filtered = [...recipes];
-    
+
     if (term) {
-      filtered = filtered.filter(recipe =>
+      filtered = filtered.filter((recipe) =>
         recipe.title.toLowerCase().includes(term.toLowerCase())
       );
     }
@@ -52,7 +52,7 @@ function App() {
     let sorted = [...recipes];
 
     if (searchTerm) {
-      sorted = sorted.filter(recipe =>
+      sorted = sorted.filter((recipe) =>
         recipe.title.toLowerCase().includes(searchTerm.toLowerCase())
       );
     }

@@ -4,6 +4,50 @@ import Navbar from "../components/navbar";
 import FilterBar from "../components/filters";
 
 const Home = ({ recipes, currentFilter, onFilterChange, onSearch }) => {
+  const highlightTitleWords = (title, description) => {
+    // Liste des mots à ignorer
+    const stopWords = [
+      "de",
+      "la",
+      "le",
+      "les",
+      "du",
+      "des",
+      "un",
+      "une",
+      "et",
+      "à",
+      "au",
+      "aux",
+      "en",
+      "avec",
+    ];
+
+    // Filtrer les mots du titre pour exclure les stopWords
+    const titleWords = title
+      .toLowerCase()
+      .split(/\s+/)
+      .filter((word) => !stopWords.includes(word) && word.length > 2);
+
+    const parts = description.split(
+      new RegExp(`(${titleWords.join("|")})`, "gi")
+    );
+
+    return parts.map((part, index) => {
+      const isMatch = titleWords.includes(part.toLowerCase());
+      return isMatch ? (
+        <span
+          key={index}
+          className="text-cyan-400"
+        >
+          {part}
+        </span>
+      ) : (
+        part
+      );
+    });
+  };
+
   return (
     <>
       <Navbar accueilOnClick={() => {}} />
@@ -47,7 +91,7 @@ const Home = ({ recipes, currentFilter, onFilterChange, onSearch }) => {
             </div>
             <div>
               <p className="text-gray-700 font-memoirs text-xl min-h-[100px] mt-4">
-                {recipe.description}
+                {highlightTitleWords(recipe.title, recipe.description)}
               </p>
               <hr />
               <p className="text-gray-600 font-memoirs text-xs text-right">
