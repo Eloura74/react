@@ -1,8 +1,17 @@
 /** @type {import('tailwindcss').Config} */
-module.exports = {
-  content: ["./src/**/*.{js,jsx,ts,tsx}"],
+export default {
+  content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        bodyBgStart: "#6D6962",
+        bodyBgMid: "#A6A5A1",
+        bodyBgEnd: "#C6C2B3",
+      },
+      fontFamily: {
+        memoirs: ['"Mouse Memoirs"', 'sans-serif'],
+      },
+    },
   },
   plugins: [],
 };
