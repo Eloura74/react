@@ -5,7 +5,7 @@ import "./styles/index.css";
 import "./styles/custom.css";
 
 // Pages
-import Home from "./pages/home";
+import Home from "./pages/Home";
 import RecipeDetails from "./pages/RecipeDetails";
 
 // Data
