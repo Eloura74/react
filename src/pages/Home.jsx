@@ -1,7 +1,7 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import Navbar from '../components/navbar';
-import FilterBar from '../components/filters';
+import React from "react";
+import { Link } from "react-router-dom";
+import Navbar from "../components/navbar";
+import FilterBar from "../components/filters";
 
 const Home = ({ recipes, currentFilter, onFilterChange, onSearch }) => {
   return (
@@ -26,25 +26,27 @@ const Home = ({ recipes, currentFilter, onFilterChange, onSearch }) => {
               alt={recipe.title}
               className="mb-2 rounded-lg object-cover w-[400px] h-[400px] mx-auto shadow-lg hover:shadow-xl hover:shadow-cyan-500/50"
             />
-            <div className="text-left">
-              <p className="text-gray-700 font-memoirs text-xl">
+            <div className="text-left mt-4">
+              <p className="text-gray-700 font-memoirs text-xl mb-2">
                 Difficulté: {"⭐".repeat(recipe.difficulty)}
               </p>
               <hr />
-              <p className="text-gray-600 font-memoirs">
-                ⏲ Temps de preparation: {recipe.prepTime} minutes
-              </p>
-              <p className="text-gray-600 font-memoirs">
-                <span className="text-red-500 text-xl"> ❤</span> Likes:{" "}
-                {recipe.likes}
-              </p>
-              <p className="text-gray-600 font-memoirs">
-                👀 Views: {recipe.views}
-              </p>
+              <article className="mt-2 mb-2">
+                <p className="text-gray-600 font-memoirs">
+                  ⏲ Temps de preparation: {recipe.prepTime} minutes
+                </p>
+                <p className="text-gray-600 font-memoirs">
+                  <span className="text-red-500 text-xl"> ❤</span> Likes:{" "}
+                  {recipe.likes}
+                </p>
+                <p className="text-gray-600 font-memoirs">
+                  👀 Views: {recipe.views}
+                </p>
+              </article>
               <hr />
             </div>
             <div>
-              <p className="text-gray-700 font-memoirs text-xl min-h-[100px]">
+              <p className="text-gray-700 font-memoirs text-xl min-h-[100px] mt-4">
                 {recipe.description}
               </p>
               <hr />
@@ -57,7 +59,7 @@ const Home = ({ recipes, currentFilter, onFilterChange, onSearch }) => {
             </div>
             <Link
               to={`/recipe/${recipe.id}`}
-              className="bg-[#353549] text-gray-50 text-2xl font-memoirs rounded-full px-4 py-2 hover:bg-[#343437] transition-colors shadow-lg hover:shadow-cyan-500/50 mt-4 inline-block"
+              className="bg-[#353549] text-gray-50 text-2xl font-memoirs rounded-full ml-6 px-8 py-2 hover:bg-[#343437] transition-colors shadow-lg hover:text-cyan-500 hover:shadow-cyan-500/50 mt-4 inline-block"
             >
               Voir la recette
             </Link>
