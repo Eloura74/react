@@ -21,8 +21,14 @@ const Navbar = ({ accueilOnClick }) => {
             Accueil
           </span>
         </Link>
-        {/* icone pour aller sur dashboard */}
-        <Link to="/dashboard" className="rounded-full cursor-pointer hoverBtn">
+
+        {/* Icône pour ouvrir Dashboard dans un nouvel onglet */}
+        <a
+          href="/dashboard"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="rounded-full cursor-pointer hoverBtn"
+        >
           <svg
             width="50px"
             height="50px"
@@ -38,7 +44,7 @@ const Navbar = ({ accueilOnClick }) => {
               />
             </g>
           </svg>
-        </Link>
+        </a>
       </div>
     </nav>
   );
