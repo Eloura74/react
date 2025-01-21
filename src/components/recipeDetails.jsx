@@ -1,5 +1,5 @@
-import React from "react";
 import { useParams, Link } from "react-router-dom";
+import PropTypes from "prop-types";
 
 const RecipeDetails = ({ recipes }) => {
   const { id } = useParams();
@@ -16,7 +16,7 @@ const RecipeDetails = ({ recipes }) => {
             to="/"
             className="bg-[#353549] text-white font-memoirs rounded-full px-4 py-2 hover:bg-[#343437] transition-colors"
           >
-            Retour à l'accueil
+            Retour à l`&apos;`accueil
           </Link>
         </div>
       </div>
@@ -33,7 +33,7 @@ const RecipeDetails = ({ recipes }) => {
               to="/"
               className="shadowAndHover bg-[#353549] text-white font-memoirs rounded-full px-4 py-2 hover:bg-[#343437] transition-colors inline-block mb-4"
             >
-              ← Retour à l'accueil
+              ← Retour à l`&apos;`accueil
             </Link>
             <h1 className="text-5xl font-memoirs text-center mb-6 ">
               {recipe.title}
@@ -59,7 +59,8 @@ const RecipeDetails = ({ recipes }) => {
                   ⏲ Temps de préparation: {recipe.prepTime} minutes
                 </p>
                 <p className="text-gray-600 font-memoirs">
-                  <span className="text-red-500 text-xl">❤</span> Likes: {recipe.likes}
+                  <span className="text-red-500 text-xl">❤</span> Likes:{" "}
+                  {recipe.likes}
                 </p>
                 <p className="text-gray-600 font-memoirs">
                   👀 Vues: {recipe.views}
@@ -68,7 +69,9 @@ const RecipeDetails = ({ recipes }) => {
 
               <div className="bg-white bg-opacity-80 rounded-lg p-4 shadow shadowAndHover">
                 <h2 className="text-2xl font-memoirs mb-2">Description</h2>
-                <p className="text-gray-600 font-memoirs">{recipe.description}</p>
+                <p className="text-gray-600 font-memoirs">
+                  {recipe.description}
+                </p>
               </div>
 
               <div className="bg-white bg-opacity-80 rounded-lg p-4 shadow shadowAndHover">
@@ -99,6 +102,10 @@ const RecipeDetails = ({ recipes }) => {
       </div>
     </section>
   );
+};
+
+RecipeDetails.propTypes = {
+  recipes: PropTypes.array.isRequired, // Seule cette prop est requise
 };
 
 export default RecipeDetails;

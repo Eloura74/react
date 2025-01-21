@@ -10,6 +10,7 @@
   background-image: url("/images/ban.png");
 }
 
+/* couleur du background du navbar */
 .navbarBg::before {
   content: "";
   @apply absolute inset-0 pointer-events-none;
@@ -20,23 +21,38 @@
   );
 }
 
+/* effet sur les boutons */
 .hoverBtn {
   @apply hover:scale-110 transition duration-500 ease-in-out hover:shadow-lg hover:shadow-cyan-500/50;
 }
 
+/* couleur du background des cartes */
 .bgCard {
   @apply bg-gradient-to-b from-neutral-300 from-40% via-cyan-50 via-60% to-teal-50 to-90%;
 }
 
+/* effet hoiver */
 .hoverEffect {
   @apply hover:bg-gradient-to-b from-gray-300 via-gray-400 to-gray-50 hover:text-[#14142B] font-semibold hover:shadow-xl transition-shadow duration-500 ease-in-out;
 }
 
+/* Bg de la page detail*/
 .detailGb {
   @apply opacity-10;
   background-image: url("/images/download.png");
 }
 
+/* effet sur les cartes */
 .shadowAndHover {
   @apply shadow-lg hover:shadow-xl hover:shadow-cyan-500/50;
+}
+
+.text-hover {
+  transition: transform 0.3s ease;
+  display: inline-block;
+}
+
+.text-hover:hover {
+  transform: scale(1.1);
+  /* color: #60a5fa; */
 }

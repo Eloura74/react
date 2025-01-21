@@ -1,12 +1,19 @@
-import React from "react";
+// import React from "react";
 import { useParams, Link } from "react-router-dom";
 import Navbar from "../components/navbar";
 import { motion } from "framer-motion";
+import PropTypes from "prop-types";
 
-const RecipeDetails = ({ recipes, currentFilter, onFilterChange }) => {
-  const { id } = useParams();
-  const recipe = recipes.find((r) => r.id === id);
+const RecipeDetails = ({
+  recipes,
+  currentFilter,
+  onFilterChange,
+  // onSearch,
+}) => {
+  const { id } = useParams(); // on recupere l'id du parametre
+  const recipe = recipes.find((r) => r.id === id); // on cherche la recette avec l'id
 
+  // si la recette n'existe pas alors on affiche un message
   if (!recipe) {
     return (
       <div className="min-h-screen bodyBg">
@@ -19,7 +26,7 @@ const RecipeDetails = ({ recipes, currentFilter, onFilterChange }) => {
             to="/"
             className="bg-[#353549] text-white font-memoirs rounded-full px-4 py-2 hover:bg-[#343437] transition-colors shadowAndHover"
           >
-            Retour à l'accueil
+            Retour à l`&apos;`accueil
           </Link>
         </div>
       </div>
@@ -27,16 +34,22 @@ const RecipeDetails = ({ recipes, currentFilter, onFilterChange }) => {
   }
 
   return (
-    <div className="min-h-screen bodyBg">
+    <section className="min-h-screen bodyBg">
+      {/* Navbar de la page details */}
       <Navbar currentFilter={currentFilter} onFilterChange={onFilterChange} />
+      {/* Fond */}
       <div className="absolute inset-0 bg-[url('/images/fondDetail.png')] bg-cover bg-center bg-no-repeat opacity-25"></div>
+      {/* Contenu */}
       <div className="relative p-6">
+        {/* Contenu de la recette */}
         <article className="max-w-4xl mx-auto">
           <div className="bgCard rounded-lg shadow-lg p-8">
+            {/* Titre */}
             <h1 className="text-5xl font-memoirs text-center mb-8 text-gray-800">
               {recipe.title}
             </h1>
 
+            {/* Informations */}
             <div className="grid md:grid-cols-2 gap-8">
               <div>
                 <img
@@ -45,27 +58,31 @@ const RecipeDetails = ({ recipes, currentFilter, onFilterChange }) => {
                   className="rounded-lg shadow-md w-full object-cover h-[400px] shadowAndHover"
                 />
               </div>
-
+              {/* Informations */}
               <div className="space-y-6">
                 <div className="bg-white bg-opacity-80 rounded-lg p-6 shadow shadowAndHover">
                   <h2 className="text-3xl font-memoirs mb-4 text-gray-800">
                     Informations
                   </h2>
+                  {/* difficulté */}
                   <p className="text-gray-700 font-memoirs text-xl">
                     Difficulté: {"⭐".repeat(recipe.difficulty)}
                   </p>
+                  {/* temps de preparation */}
                   <p className="text-gray-700 font-memoirs text-xl">
                     ⏲ Temps de préparation: {recipe.prepTime} minutes
                   </p>
+                  {/* likes */}
                   <p className="text-gray-700 font-memoirs text-xl">
                     <span className="text-red-500">❤</span> Likes:{" "}
                     {recipe.likes}
                   </p>
+                  {/* views */}
                   <p className="text-gray-700 font-memoirs text-xl">
                     👀 Vues: {recipe.views}
                   </p>
                 </div>
-
+                {/* description */}
                 <div className="bg-white bg-opacity-80 rounded-lg p-6 shadow shadowAndHover">
                   <h2 className="text-3xl font-memoirs mb-4 text-gray-800">
                     Description
@@ -76,13 +93,14 @@ const RecipeDetails = ({ recipes, currentFilter, onFilterChange }) => {
                 </div>
               </div>
             </div>
-
+            {/* ingrédients */}
             <div className="mt-8 space-y-6">
               <div className="bg-white bg-opacity-80 rounded-lg p-6 shadow shadowAndHover">
                 <h2 className="text-3xl font-memoirs mb-4 text-gray-800">
                   Ingrédients
                 </h2>
                 <ul className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  {/* Liste des ingrédients */}
                   {recipe.ingredients.map((ingredient, index) => (
                     <li
                       key={index}
@@ -94,7 +112,7 @@ const RecipeDetails = ({ recipes, currentFilter, onFilterChange }) => {
                   ))}
                 </ul>
               </div>
-
+              {/* instructions */}
               <div className="bg-white bg-opacity-80 rounded-lg p-6 shadow shadowAndHover">
                 <h2 className="text-3xl font-memoirs mb-4 text-gray-800">
                   Instructions
@@ -111,7 +129,7 @@ const RecipeDetails = ({ recipes, currentFilter, onFilterChange }) => {
                   ))}
                 </ol>
               </div>
-
+              {/* auteur */}
               <div className="text-right text-gray-600 font-memoirs">
                 <p className="text-lg">Recette par: {recipe.author}</p>
                 <p className="text-lg">Date de publication: {recipe.date}</p>
@@ -136,8 +154,32 @@ const RecipeDetails = ({ recipes, currentFilter, onFilterChange }) => {
           </Link>
         </motion.div>
       </div>
-    </div>
+    </section>
   );
+};
+// ______________________________________________________________________________
+// ______________________________________________________________________________
+// Prop-types pour rendre le debug plus facile et verifier que les proprietes sont bien passes
+RecipeDetails.propTypes = {
+  recipes: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      title: PropTypes.string.isRequired,
+      imageUrl: PropTypes.string.isRequired,
+      difficulty: PropTypes.number.isRequired,
+      prepTime: PropTypes.number.isRequired,
+      likes: PropTypes.number.isRequired,
+      views: PropTypes.number.isRequired,
+      description: PropTypes.string.isRequired,
+      ingredients: PropTypes.arrayOf(PropTypes.string).isRequired,
+      instructions: PropTypes.arrayOf(PropTypes.string).isRequired,
+      author: PropTypes.string.isRequired,
+      date: PropTypes.string.isRequired,
+    })
+  ).isRequired,
+  currentFilter: PropTypes.string.isRequired,
+  onFilterChange: PropTypes.func.isRequired,
+  onSearch: PropTypes.func.isRequired,
 };
 
 export default RecipeDetails;
