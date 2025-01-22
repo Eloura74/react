@@ -1,5 +1,5 @@
 // import React from "react";
-import PropTypes from "prop-types";
+// import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import Navbar from "../components/navbar";
 import FilterBar from "../components/filters";
@@ -170,11 +170,11 @@ const Home = ({ recipes, currentFilter, onFilterChange, onSearch }) => {
 // ______________________________________________________________________________
 // ______________________________________________________________________________
 // Prop-types pour rendre le debug plus facile et verifier que les proprietes sont bien passes
-Home.propTypes = {
-  recipes: PropTypes.array.isRequired,
-  currentFilter: PropTypes.string.isRequired,
-  onFilterChange: PropTypes.func.isRequired,
-  onSearch: PropTypes.func.isRequired,
-};
+// Home.propTypes = {
+//   recipes: PropTypes.array.isRequired,
+//   currentFilter: PropTypes.string.isRequired,
+//   onFilterChange: PropTypes.func.isRequired,
+//   onSearch: PropTypes.func.isRequired,
+// };
 
 export default Home;

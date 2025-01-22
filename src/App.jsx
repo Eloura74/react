@@ -52,7 +52,7 @@ function App() {
   };
 
   return (
-    <main className="flex flex-col min-h-screen bodyBg">
+    <div className="min-h-screen flex flex-col">
       <Routes>
         {/* Route pour la page d'accueil */}
         <Route
@@ -69,12 +69,16 @@ function App() {
         {/* Route pour la page de détails */}
         <Route
           path="/recipe/:id"
-          element={<RecipeDetails recipes={filteredRecipes} />}
+          element={
+            <RecipeDetails
+              recipes={recipes}
+            />
+          }
         />
         {/* Route pour le tableau de bord */}
         <Route path="/dashboard" element={<Dashboard />} />
       </Routes>
-    </main>
+    </div>
   );
 }
 

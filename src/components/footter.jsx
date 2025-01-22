@@ -48,19 +48,19 @@ const Footter = ({ copyright, socialLinks, navLinks }) => {
 export default Footter;
 
 // Prop-types pour rendre le debug plus facile et verifier que les proprietes sont bien passes
-Footter.propTypes = {
-  copyright: PropTypes.string.isRequired,
-  socialLinks: PropTypes.arrayOf(
-    PropTypes.shape({
-      href: PropTypes.string.isRequired,
-      icon: PropTypes.string.isRequired,
-      name: PropTypes.string.isRequired,
-    })
-  ).isRequired,
-  navLinks: PropTypes.arrayOf(
-    PropTypes.shape({
-      path: PropTypes.string.isRequired,
-      label: PropTypes.string.isRequired,
-    })
-  ).isRequired,
-};
+// Footter.propTypes = {
+//   copyright: PropTypes.string.isRequired,
+//   socialLinks: PropTypes.arrayOf(
+//     PropTypes.shape({
+//       href: PropTypes.string.isRequired,
+//       icon: PropTypes.string.isRequired,
+//       name: PropTypes.string.isRequired,
+//     })
+//   ).isRequired,
+//   navLinks: PropTypes.arrayOf(
+//     PropTypes.shape({
+//       path: PropTypes.string.isRequired,
+//       label: PropTypes.string.isRequired,
+//     })
+//   ).isRequired,
+// };

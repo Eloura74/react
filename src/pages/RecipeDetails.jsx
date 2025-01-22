@@ -1,9 +1,8 @@
-// import React from "react";
 import { useParams, Link } from "react-router-dom";
 import Navbar from "../components/navbar";
 import { motion } from "framer-motion";
-import PropTypes from "prop-types";
 import Footter from "../components/footter";
+
 // Liens du footer
 const socialLinks = [
   {
@@ -24,189 +23,126 @@ const navLinks = [
   { label: "Contact", path: "/contact" },
 ];
 
-const RecipeDetails = ({
-  recipes,
-  currentFilter,
-  onFilterChange,
-  // onSearch,
-}) => {
-  const { id } = useParams(); // on recupere l'id du parametre
-  const recipe = recipes.find((r) => r.id === id); // on cherche la recette avec l'id
+// ______________________________________________________________________________
+// ______________________________________________________________________________
+const RecipeDetails = ({ recipes }) => {
+  const { id } = useParams();
+  const recipe = recipes.find((r) => r.id === id);
 
-  // si la recette n'existe pas alors on affiche un message
   if (!recipe) {
     return (
-      <div className="min-h-screen bodyBg">
-        <Navbar currentFilter={currentFilter} onFilterChange={onFilterChange} />
-        <div className="text-center p-6">
-          <h2 className="text-4xl font-memoirs text-gray-800 mb-4">
-            Recette non trouvée
-          </h2>
-          <Link
-            to="/"
-            className="bg-[#353549] text-white font-memoirs rounded-full px-4 py-2 hover:bg-[#343437] transition-colors shadowAndHover"
-          >
-            Retour à l`&apos;`accueil
-          </Link>
+      <div className="min-h-screen flex flex-col">
+        <Navbar />
+        <div className="flex-1 flex items-center justify-center">
+          <p className="text-2xl text-gray-600">Recette non trouvée</p>
         </div>
+        <Footter
+          copyright="2024 Lets Cook. Tous droits réservés."
+          socialLinks={socialLinks}
+          navLinks={navLinks}
+        />
       </div>
     );
   }
 
   return (
-    <section className="min-h-screen bodyBg">
-      {/* Navbar de la page details */}
-      <Navbar currentFilter={currentFilter} onFilterChange={onFilterChange} />
-      {/* Fond */}
-      <div className="absolute inset-0 bg-[url('/images/fondDetail.png')] bg-cover bg-center bg-no-repeat opacity-25"></div>
-      {/* Contenu */}
-      <div className="relative p-6">
-        {/* Contenu de la recette */}
-        <article className="max-w-4xl mx-auto">
-          <div className="bgCard rounded-lg shadow-lg p-8">
-            {/* Titre */}
-            <h1 className="text-5xl font-memoirs text-center mb-8 text-gray-800">
-              {recipe.title}
-            </h1>
+    <div className="min-h-screen flex flex-col">
+      <Navbar />
+      <main className="flex-1 container mx-auto px-4 py-8">
+        <div className="max-w-4xl mx-auto bg-white rounded-lg shadow-lg p-8">
+          {/* En-tête de la recette */}
+          <div className="text-center mb-8">
+            <h1 className="text-4xl font-memoirs mb-4">{recipe.title}</h1>
+            <img
+              src={recipe.imageUrl}
+              alt={recipe.title}
+              className="w-full h-96 object-cover rounded-lg mb-4"
+            />
+          </div>
 
-            {/* Informations */}
-            <div className="grid md:grid-cols-2 gap-8">
-              <div>
-                <img
-                  src={recipe.imageUrl}
-                  alt={recipe.title}
-                  className="rounded-lg shadow-md w-full object-cover h-[400px] shadowAndHover"
-                />
-              </div>
-              {/* Informations */}
-              <div className="space-y-6">
-                <div className="bg-white bg-opacity-80 rounded-lg p-6 shadow shadowAndHover">
-                  <h2 className="text-3xl font-memoirs mb-4 text-gray-800">
-                    Informations
-                  </h2>
-                  {/* difficulté */}
-                  <p className="text-gray-700 font-memoirs text-xl">
-                    Difficulté: {"⭐".repeat(recipe.difficulty)}
-                  </p>
-                  {/* temps de preparation */}
-                  <p className="text-gray-700 font-memoirs text-xl">
-                    ⏲ Temps de préparation: {recipe.prepTime} minutes
-                  </p>
-                  {/* likes */}
-                  <p className="text-gray-700 font-memoirs text-xl">
-                    <span className="text-red-500">❤</span> Likes:{" "}
-                    {recipe.likes}
-                  </p>
-                  {/* views */}
-                  <p className="text-gray-700 font-memoirs text-xl">
-                    👀 Vues: {recipe.views}
-                  </p>
-                </div>
-                {/* description */}
-                <div className="bg-white bg-opacity-80 rounded-lg p-6 shadow shadowAndHover">
-                  <h2 className="text-3xl font-memoirs mb-4 text-gray-800">
-                    Description
-                  </h2>
-                  <p className="text-gray-700 font-memoirs text-xl">
-                    {recipe.description}
-                  </p>
-                </div>
-              </div>
+          {/* Informations de la recette */}
+          <div className="grid grid-cols-3 gap-4 mb-8 text-center">
+            <div>
+              <h2 className="text-xl font-memoirs mb-2">Difficulté</h2>
+              <p>{"⭐".repeat(recipe.difficulty)}</p>
             </div>
-            {/* ingrédients */}
-            <div className="mt-8 space-y-6">
-              <div className="bg-white bg-opacity-80 rounded-lg p-6 shadow shadowAndHover">
-                <h2 className="text-3xl font-memoirs mb-4 text-gray-800">
-                  Ingrédients
-                </h2>
-                <ul className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  {/* Liste des ingrédients */}
-                  {recipe.ingredients.map((ingredient, index) => (
-                    <li
-                      key={index}
-                      className="text-gray-700 font-memoirs text-xl flex items-center"
-                    >
-                      <span className="mr-2">•</span>
-                      {ingredient}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-              {/* instructions */}
-              <div className="bg-white bg-opacity-80 rounded-lg p-6 shadow shadowAndHover">
-                <h2 className="text-3xl font-memoirs mb-4 text-gray-800">
-                  Instructions
-                </h2>
-                <ol className="space-y-4">
-                  {recipe.instructions.map((instruction, index) => (
-                    <li
-                      key={index}
-                      className="text-gray-700 font-memoirs text-xl"
-                    >
-                      <span className="font-bold mr-2">{index + 1}.</span>
-                      {instruction}
-                    </li>
-                  ))}
-                </ol>
-              </div>
-              {/* auteur */}
-              <div className="text-right text-gray-600 font-memoirs">
-                <p className="text-lg">Recette par: {recipe.author}</p>
-                <p className="text-lg">Date de publication: {recipe.date}</p>
-              </div>
+            <div>
+              <h2 className="text-xl font-memoirs mb-2">Temps de préparation</h2>
+              <p>{recipe.prepTime} minutes</p>
+            </div>
+            <div>
+              <h2 className="text-xl font-memoirs mb-2">Popularité</h2>
+              <p>{recipe.likes} likes</p>
             </div>
           </div>
-        </article>
 
-        {/* Bouton flottant "Retour à l'accueil" */}
-        <motion.div
-          className="fixed bottom-6 right-6 z-50"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.3 }}
-        >
-          <Link
-            to="/"
-            className="bg-[#353549] text-white font-memoirs rounded-full px-6 py-3 hover:bg-[#343437] transition-colors shadowAndHover flex items-center gap-2"
-          >
-            <span>←</span>
-            <span>Retour</span>
-          </Link>
-        </motion.div>
-      </div>
-    </section>
+          {/* Description */}
+          <div className="mb-8">
+            <h2 className="text-2xl font-memoirs mb-4">Description</h2>
+            <p className="text-gray-700">{recipe.description}</p>
+          </div>
+
+          {/* Ingrédients */}
+          <div className="mb-8">
+            <h2 className="text-2xl font-memoirs mb-4">Ingrédients</h2>
+            <ul className="list-disc list-inside space-y-2">
+              {recipe.ingredients.map((ingredient, index) => (
+                <motion.li
+                  key={index}
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: index * 0.1 }}
+                  className="text-gray-700"
+                >
+                  {ingredient}
+                </motion.li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Instructions */}
+          <div className="mb-8">
+            <h2 className="text-2xl font-memoirs mb-4">Instructions</h2>
+            <ol className="list-decimal list-inside space-y-4">
+              {recipe.instructions.map((instruction, index) => (
+                <motion.li
+                  key={index}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: index * 0.1 }}
+                  className="text-gray-700"
+                >
+                  {instruction}
+                </motion.li>
+              ))}
+            </ol>
+          </div>
+
+          {/* Informations supplémentaires */}
+          <div className="text-sm text-gray-500 mt-8">
+            <p>Par {recipe.author}</p>
+            <p>Publié le {new Date(recipe.date).toLocaleDateString()}</p>
+            <p>{recipe.views} vues</p>
+          </div>
+
+          {/* Bouton retour */}
+          <div className="mt-8 text-center">
+            <Link
+              to="/"
+              className="bg-[#353549] text-white px-6 py-2 rounded-full hover:bg-[#2D2D4D] transition-colors inline-block"
+            >
+              Retour aux recettes
+            </Link>
+          </div>
+        </div>
+      </main>
+      <Footter
+        copyright="2024 Lets Cook. Tous droits réservés."
+        socialLinks={socialLinks}
+        navLinks={navLinks}
+      />
+    </div>
   );
-};
-<footer className="bg-[#14142B] bottom-0 w-full shadow-lg flex items-center justify-between z-50">
-  <Footter
-    socialLinks={socialLinks}
-    navLinks={navLinks}
-    copyright="© 2024 Lets Cook. Tous droits réservés."
-  />
-</footer>;
-// ______________________________________________________________________________
-// ______________________________________________________________________________
-// Prop-types pour rendre le debug plus facile et verifier que les proprietes sont bien passes
-RecipeDetails.propTypes = {
-  recipes: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.string.isRequired,
-      title: PropTypes.string.isRequired,
-      imageUrl: PropTypes.string.isRequired,
-      difficulty: PropTypes.number.isRequired,
-      prepTime: PropTypes.number.isRequired,
-      likes: PropTypes.number.isRequired,
-      views: PropTypes.number.isRequired,
-      description: PropTypes.string.isRequired,
-      ingredients: PropTypes.arrayOf(PropTypes.string).isRequired,
-      instructions: PropTypes.arrayOf(PropTypes.string).isRequired,
-      author: PropTypes.string.isRequired,
-      date: PropTypes.string.isRequired,
-    })
-  ).isRequired,
-  currentFilter: PropTypes.string.isRequired,
-  onFilterChange: PropTypes.func.isRequired,
-  onSearch: PropTypes.func.isRequired,
 };
 
 export default RecipeDetails;

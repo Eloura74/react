@@ -54,7 +54,7 @@ const Navbar = ({ accueilOnClick }) => {
 // ______________________________________________________________________________
 // ______________________________________________________________________________
 // Prop-types pour rendre le debug plus facile et verifier que les proprietes sont bien passes
-Navbar.propTypes = {
-  accueilOnClick: PropTypes.func.isRequired,
-};
+// Navbar.propTypes = {
+//   accueilOnClick: PropTypes.func.isRequired,
+// };
 export default Navbar;

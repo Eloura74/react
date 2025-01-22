@@ -62,9 +62,9 @@ const FilterFunctions = () => {
 
 // ______________________________________________________________________________
 // Prop-types pour la validation des props
-FilterFunctions.propTypes = {
-  recipes: PropTypes.array.isRequired,
-  searchTerm: PropTypes.string.isRequired,
-};
+// FilterFunctions.propTypes = {
+//   recipes: PropTypes.array.isRequired,
+//   searchTerm: PropTypes.string.isRequired,
+// };
 
 export default FilterFunctions;

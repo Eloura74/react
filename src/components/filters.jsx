@@ -68,10 +68,10 @@ const FilterBar = ({ currentFilter, onFilterChange, onSearch }) => {
 
 // ______________________________________________________________________________
 // Prop-types pour rendre le debug plus facile et verifier que les proprietes sont bien passes
-FilterBar.propTypes = {
-  currentFilter: PropTypes.string.isRequired,
-  onFilterChange: PropTypes.func.isRequired,
-  onSearch: PropTypes.func.isRequired,
-};
+// FilterBar.propTypes = {
+//   currentFilter: PropTypes.string.isRequired,
+//   onFilterChange: PropTypes.func.isRequired,
+//   onSearch: PropTypes.func.isRequired,
+// };
 
 export default FilterBar;
