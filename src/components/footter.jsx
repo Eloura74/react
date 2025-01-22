@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
-import { SocialIcon } from "react-social-icons";
+import { SocialIcon } from "react-social-icons"; 
 
 const Footter = ({ copyright, socialLinks, navLinks }) => {
   return (

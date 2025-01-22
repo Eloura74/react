@@ -3,6 +3,8 @@ import { motion } from "framer-motion"; // import de framer motion pour l'animat
 import SearchBar from "./SearchBar"; // import du composant SearchBar
 import PropTypes from "prop-types"; // pour rendre le debug plus facile et verifier que les proprietes sont bien passes
 
+
+
 // composant FilterBar
 const FilterBar = ({ currentFilter, onFilterChange, onSearch }) => {
   // Style a appliquer aux boutons
@@ -16,6 +18,7 @@ const FilterBar = ({ currentFilter, onFilterChange, onSearch }) => {
     }`;
   };
 
+  // retourne le composant
   return (
     <section className="container mx-auto p-6 pl-4 sm:pl-0 space-y-6">
       <div className="flex flex-col sm:flex-row gap-4 items-center justify-between">

@@ -3,6 +3,26 @@ import { useParams, Link } from "react-router-dom";
 import Navbar from "../components/navbar";
 import { motion } from "framer-motion";
 import PropTypes from "prop-types";
+import Footter from "../components/footter";
+// Liens du footer
+const socialLinks = [
+  {
+    name: "facebook",
+    href: "https://facebook.com",
+    icon: "/images/logoFb.svg",
+  },
+  {
+    name: "instagram",
+    href: "https://instagram.com",
+    icon: "/images/logoInsta.svg",
+  },
+];
+
+const navLinks = [
+  { label: "Accueil", path: "/" },
+  { label: "A propos", path: "/about" },
+  { label: "Contact", path: "/contact" },
+];
 
 const RecipeDetails = ({
   recipes,
@@ -157,6 +177,13 @@ const RecipeDetails = ({
     </section>
   );
 };
+<footer className="bg-[#14142B] bottom-0 w-full shadow-lg flex items-center justify-between z-50">
+  <Footter
+    socialLinks={socialLinks}
+    navLinks={navLinks}
+    copyright="© 2024 Lets Cook. Tous droits réservés."
+  />
+</footer>;
 // ______________________________________________________________________________
 // ______________________________________________________________________________
 // Prop-types pour rendre le debug plus facile et verifier que les proprietes sont bien passes

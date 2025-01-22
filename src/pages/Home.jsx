@@ -55,6 +55,7 @@ const Home = ({ recipes, currentFilter, onFilterChange, onSearch }) => {
       .toLowerCase()
       .split(/\s+/) // Diviser le titre en mots
       .filter((word) => !motIgnore.includes(word) && word.length > 2);
+    // Filtrer les mots
 
     // ______________________________________________________________________________
     // ______________________________________________________________________________

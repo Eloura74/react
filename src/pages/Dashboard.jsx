@@ -5,6 +5,26 @@ import RecipeForm from "../components/RecipeForm";
 import RecipeList from "../components/RecipeList";
 import Recipes from "../../public/recettes.json";
 
+// Liens du footer
+const socialLinks = [
+  {
+    name: "facebook",
+    href: "https://facebook.com",
+    icon: "/images/logoFb.svg",
+  },
+  {
+    name: "instagram",
+    href: "https://instagram.com",
+    icon: "/images/logoInsta.svg",
+  },
+];
+
+const navLinks = [
+  { label: "Accueil", path: "/" },
+  { label: "A propos", path: "/about" },
+  { label: "Contact", path: "/contact" },
+];
+
 const Dashboard = () => {
   // État pour les recettes sauvegardées
   const [savedRecipes, setSavedRecipes] = useState([]);
@@ -26,13 +46,14 @@ const Dashboard = () => {
 
   // Charger les recettes sauvegardées au chargement du composant
   useEffect(() => {
-    const localRecipes = localStorage.getItem("userRecipes");
+    const localRecipes = localStorage.getItem("userRecipes"); // Obtenir les recettes sauvegardées
     if (localRecipes) {
-      const parsedRecipes = JSON.parse(localRecipes);
+      // Si elles existent
+      const parsedRecipes = JSON.parse(localRecipes); // Convertir en tableau
       setSavedRecipes(parsedRecipes);
-      setAllRecipes([...Recipes, ...parsedRecipes]);
+      setAllRecipes([...Recipes, ...parsedRecipes]); // Mettre à jour toutes les recettes
     } else {
-      setAllRecipes([...Recipes]);
+      setAllRecipes([...Recipes]); // Mettre à jour toutes les recettes
     }
   }, []);
 
@@ -60,7 +81,7 @@ const Dashboard = () => {
     // Mettre à jour le state et le localStorage
     setSavedRecipes(updatedRecipes);
     setAllRecipes([...Recipes, ...updatedRecipes]);
-    localStorage.setItem("userRecipes", JSON.stringify(updatedRecipes));
+    localStorage.setItem("userRecipes", JSON.stringify(updatedRecipes)); // convertir en string
 
     // Réinitialiser le formulaire
     setNewRecipe({
@@ -72,7 +93,7 @@ const Dashboard = () => {
       instructions: "",
       likes: 0,
       views: 0,
-      date: new Date().toISOString(),
+      date: new Date().toISOString(), // Mettre à jour la date
     });
 
     alert("Recette enregistrée avec succès !");
@@ -92,17 +113,9 @@ const Dashboard = () => {
       </article>
 
       <Footter
-        copyright=" 2024 Lets Cook. Tous droits réservés."
-        socialLinks={[
-          { url: "https://twitter.com", network: "twitter" },
-          { url: "https://facebook.com", network: "facebook" },
-          { url: "https://instagram.com", network: "instagram" },
-        ]}
-        navLinks={[
-          { text: "Mentions légales", url: "/mentions-legales" },
-          { text: "Politique de confidentialité", url: "/confidentialite" },
-          { text: "CGU", url: "/cgu" },
-        ]}
+        socialLinks={socialLinks}
+        navLinks={navLinks}
+        copyright="© 2024 Lets Cook. Tous droits réservés."
       />
     </section>
   );

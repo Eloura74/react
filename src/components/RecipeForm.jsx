@@ -6,12 +6,12 @@ const RecipeForm = ({ newRecipe, recipeChange, saveRecipe }) => {
   const [hoverRating, setHoverRating] = useState(0);
 
   // Créer un tableau de 5 étoiles
-  const stars = [1, 2, 3, 4, 5];
+  // const stars = [1, 2, 3, 4, 5];
 
   const handleStarClick = (rating) => {
     recipeChange({ ...newRecipe, difficulty: rating });
   };
-
+  // Fonction pour mettre en surbrillance les étoiles au survol
   const handleStarHover = (rating) => {
     setHoverRating(rating);
   };
