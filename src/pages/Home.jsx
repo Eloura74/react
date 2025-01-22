@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import Navbar from "../components/navbar";
 import FilterBar from "../components/filters";
 import Footter from "../components/footter";
+import PropTypes from "prop-types";
 
 // Liens du footer
 const socialLinks = [
@@ -133,7 +134,7 @@ const Home = ({ recipes, currentFilter, onFilterChange, onSearch }) => {
               <hr />
             </div>
             <div>
-              
+              {/* Description */}
               <p className="text-gray-700 font-memoirs text-xl min-h-[100px] mt-4">
                 {highlightmotTitle(recipe.title, recipe.description)}
               </p>
@@ -160,7 +161,7 @@ const Home = ({ recipes, currentFilter, onFilterChange, onSearch }) => {
         <Footter
           socialLinks={socialLinks}
           navLinks={navLinks}
-          copyright="© 2024 Lets Cook. Tous droits réservés."
+          copyright=" 2024 Lets Cook. Tous droits réservés."
         />
       </footer>
     </>
@@ -170,11 +171,17 @@ const Home = ({ recipes, currentFilter, onFilterChange, onSearch }) => {
 // ______________________________________________________________________________
 // ______________________________________________________________________________
 // Prop-types pour rendre le debug plus facile et verifier que les proprietes sont bien passes
-// Home.propTypes = {
-//   recipes: PropTypes.array.isRequired,
-//   currentFilter: PropTypes.string.isRequired,
-//   onFilterChange: PropTypes.func.isRequired,
-//   onSearch: PropTypes.func.isRequired,
-// };
+Home.propTypes = {
+  recipes: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number,
+      title: PropTypes.string,
+      description: PropTypes.string,
+    })
+  ),
+  currentFilter: PropTypes.string,
+  onFilterChange: PropTypes.func.isRequired,
+  onSearch: PropTypes.func,
+};
 
 export default Home;

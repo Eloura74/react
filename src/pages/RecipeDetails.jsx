@@ -1,4 +1,5 @@
 import { useParams, Link } from "react-router-dom";
+import PropTypes from 'prop-types';
 import Navbar from "../components/navbar";
 import { motion } from "framer-motion";
 import Footter from "../components/footter";
@@ -143,6 +144,25 @@ const RecipeDetails = ({ recipes }) => {
       />
     </div>
   );
+};
+
+RecipeDetails.propTypes = {
+  recipes: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      title: PropTypes.string.isRequired,
+      imageUrl: PropTypes.string.isRequired,
+      difficulty: PropTypes.number.isRequired,
+      prepTime: PropTypes.number.isRequired,
+      likes: PropTypes.number.isRequired,
+      description: PropTypes.string.isRequired,
+      ingredients: PropTypes.arrayOf(PropTypes.string).isRequired,
+      instructions: PropTypes.arrayOf(PropTypes.string).isRequired,
+      author: PropTypes.string.isRequired,
+      date: PropTypes.string.isRequired,
+      views: PropTypes.number.isRequired,
+    })
+  ).isRequired,
 };
 
 export default RecipeDetails;
