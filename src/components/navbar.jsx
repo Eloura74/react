@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 
 const Navbar = ({ accueilOnClick }) => {
   return (
-    <nav className="navbarBg flex items-center justify-between h-36 shadow-lg shadow-cyan-500/50 px-6">
+    <nav className="navbarBg flex items-center justify-between h-36 shadow-lg shadow-gray-700 px-6">
       {/* Logo à gauche */}
       <div className="flex items-center">
         <Link to="/" className="flex items-center">
@@ -35,6 +35,7 @@ const Navbar = ({ accueilOnClick }) => {
             viewBox="0 0 24 24"
             xmlns="http://www.w3.org/2000/svg"
             version="1.1"
+            aria-label="Dashboard"
           >
             <g transform="translate(0 -1028.4)">
               <path

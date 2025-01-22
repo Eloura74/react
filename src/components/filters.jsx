@@ -3,15 +3,13 @@ import { motion } from "framer-motion"; // import de framer motion pour l'animat
 import SearchBar from "./SearchBar"; // import du composant SearchBar
 import PropTypes from "prop-types"; // pour rendre le debug plus facile et verifier que les proprietes sont bien passes
 
-
-
+// ______________________________________________________________________________
 // composant FilterBar
 const FilterBar = ({ currentFilter, onFilterChange, onSearch }) => {
   // Style a appliquer aux boutons
   const getButtonClass = (filterName) => {
     const baseClasses = "px-4 py-2 rounded-full transition-colors font-memoirs";
     return `${baseClasses} ${
-      // classe de base si le filtre actuel est le filtre actuel, sinon ajouter la classe "bg-[#1F1F3D] text-white hover:bg-[#2D2D4D]"
       currentFilter === filterName
         ? "bg-[#9ca3af] text-[#14142B]"
         : "bg-[#1F1F3D] text-white hover:bg-[#2D2D4D]"
@@ -67,7 +65,7 @@ const FilterBar = ({ currentFilter, onFilterChange, onSearch }) => {
     </section>
   );
 };
-// ______________________________________________________________________________
+
 // ______________________________________________________________________________
 // Prop-types pour rendre le debug plus facile et verifier que les proprietes sont bien passes
 FilterBar.propTypes = {

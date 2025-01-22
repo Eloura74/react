@@ -11,18 +11,20 @@ const socialLinks = [
     name: "facebook",
     href: "https://facebook.com",
     icon: "/images/logoFb.svg",
+    ariaLabel: "Facebook",
   },
   {
     name: "instagram",
     href: "https://instagram.com",
     icon: "/images/logoInsta.svg",
+    ariaLabel: "Instagram",
   },
 ];
 
 const navLinks = [
-  { label: "Accueil", path: "/" },
-  { label: "A propos", path: "/about" },
-  { label: "Contact", path: "/contact" },
+  { ariaLabel: "Accueil", label: "Accueil", path: "/" },
+  { ariaLabel: "A propos", label: "A propos", path: "/about" },
+  { ariaLabel: "Contact", label: "Contact", path: "/contact" },
 ];
 
 // ______________________________________________________________________________
@@ -70,7 +72,7 @@ const Home = ({ recipes, currentFilter, onFilterChange, onSearch }) => {
     return parts.map((part, index) => {
       const isMatch = motTitle.includes(part.toLowerCase());
       return isMatch ? (
-        <span key={index} className="text-cyan-400">
+        <span key={index} className="text-cyan-700">
           {part}
         </span>
       ) : (
@@ -105,7 +107,7 @@ const Home = ({ recipes, currentFilter, onFilterChange, onSearch }) => {
             <img
               src={recipe.imageUrl}
               alt={recipe.title}
-              className="mb-2 rounded-lg object-cover w-[400px] h-[400px] mx-auto shadow-lg hover:shadow-xl hover:shadow-cyan-500/50"
+              className="mb-2 rounded-lg object-cover w-[400px] h-[400px] mx-auto shadow-lg hover:shadow-xl hover:shadow-gray-700 hover:scale-105 transition-all duration-300"
             />
             <div className="text-left mt-4">
               {/* Difficulté */}
@@ -131,6 +133,7 @@ const Home = ({ recipes, currentFilter, onFilterChange, onSearch }) => {
               <hr />
             </div>
             <div>
+              
               <p className="text-gray-700 font-memoirs text-xl min-h-[100px] mt-4">
                 {highlightmotTitle(recipe.title, recipe.description)}
               </p>
@@ -145,8 +148,8 @@ const Home = ({ recipes, currentFilter, onFilterChange, onSearch }) => {
             </div>
             {/* Bouton voir la recette */}
             <Link
-              to={`/recipe/${recipe.id}`}
-              className="bg-[#353549] text-gray-50 text-2xl font-memoirs rounded-full ml-6 px-8 py-2 hover:bg-[#343437] transition-colors shadow-lg hover:text-cyan-500 hover:shadow-cyan-500/50 mt-4 inline-block"
+              to={`/recipe/${recipe.id}#`}
+              className="bg-[#353549] text-gray-50 text-2xl font-memoirs rounded-full ml-6 px-8 py-2 hover:bg-[#343437] transition-colors shadow-lg hover:text-cyan-500 hover:shadow-text-gray-700 mt-4 inline-block"
             >
               Voir la recette
             </Link>

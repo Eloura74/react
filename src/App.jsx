@@ -13,6 +13,9 @@ import Dashboard from "./pages/Dashboard";
 // Data
 import Recipes from "../public/recettes.json";
 
+// Components
+import FilterFunctions from "./components/filterFonct";
+
 // ______________________________________________________________________________
 // ______________________________________________________________________________
 function App() {
@@ -25,68 +28,27 @@ function App() {
   // const pour stocker le terme de recherche
   const [searchTerm, setSearchTerm] = useState(""); // stocker le terme de recherche
 
+  // Initialiser les fonctions de filtrage
+  const { recherche, filterChange } = FilterFunctions();
+
   // Charger les recettes au chargement du composant qu'une seule fois
   useEffect(() => {
     setRecipes(Recipes); // initialisationd es rectete
     setFilteredRecipes(Recipes); // prepa filtrage
   }, []);
 
-  // Fonction pour filtrer les recettes en fonction du terme de recherche et du filtre actuel
-  const handleSearch = (term) => {
-    // Mettre à jour le terme de recherche
+  // Gestionnaire de recherche
+  const onSearch = (term) => {
     setSearchTerm(term);
-    // Copie des recettes
-    let filtered = [...recipes];
-    // Filtrer les recettes en fonction du terme de recherche
-    if (term) {
-      filtered = filtered.filter((recipe) =>
-        recipe.title.toLowerCase().includes(term.toLowerCase())
-      );
-    }
-    // Trier les recettes en fonction du filtre actuel
-    if (currentFilter === "recent") {
-      filtered = filtered.sort((a, b) => {
-        const dateA = new Date(a.date); // Convertit la date de l'élément 'a' en objet Date
-        const dateB = new Date(b.date);
-        return dateB - dateA;
-      });
-    } else if (currentFilter === "like") {
-      filtered = filtered.sort((a, b) => b.likes - a.likes); // Trier par likes
-    } else if (currentFilter === "difficult") {
-      filtered = filtered.sort((a, b) => b.difficulty - a.difficulty); // Trier par diff
-    }
-
+    const filtered = recherche(currentFilter, recipes, term);
     setFilteredRecipes(filtered);
   };
 
-  // Fonction pour changer le filtre
-  const handleFilterChange = (filterType) => {
-    setCurrentFilter(filterType); // mettre a jour le filtre actuel
-    // Copie des recettes
-    let sorted = [...recipes];
-
-    if (searchTerm) {
-      sorted = sorted.filter((recipe) =>
-        recipe.title.toLowerCase().includes(searchTerm.toLowerCase())
-      );
-    }
-    // filtre pour Recent
-    if (filterType === "recent") {
-      sorted = sorted.sort((a, b) => {
-        // trier par date
-        const dateA = new Date(a.date); // Convertit la date de l'élément 'a' en objet Date
-        const dateB = new Date(b.date);
-        return dateB - dateA;
-      });
-      // filtre pour Like
-    } else if (filterType === "like") {
-      sorted = sorted.sort((a, b) => b.likes - a.likes); // trier par likes
-      // filtre pour Difficulté
-    } else if (filterType === "difficult") {
-      sorted = sorted.sort((a, b) => b.difficulty - a.difficulty); // trier par difficulté
-    }
-
-    setFilteredRecipes(sorted);
+  // Gestionnaire de changement de filtre
+  const onFilterChange = (filterType) => {
+    setCurrentFilter(filterType);
+    const filtered = filterChange(filterType, recipes, searchTerm);
+    setFilteredRecipes(filtered);
   };
 
   return (
@@ -99,8 +61,8 @@ function App() {
             <Home
               recipes={filteredRecipes}
               currentFilter={currentFilter}
-              onFilterChange={handleFilterChange}
-              onSearch={handleSearch}
+              onFilterChange={onFilterChange}
+              onSearch={onSearch}
             />
           }
         />
